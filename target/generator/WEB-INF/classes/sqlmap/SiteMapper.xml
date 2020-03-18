@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.SiteMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.entity.Site">
+    <id column="SiteInfo_id" jdbcType="INTEGER" property="siteinfoId" />
+    <result column="SiteInfo_site" jdbcType="INTEGER" property="siteinfoSite" />
+    <result column="SiteInfo_location" jdbcType="VARCHAR" property="siteinfoLocation" />
+    <result column="SiteInfo_classification" jdbcType="INTEGER" property="siteinfoClassification" />
+    <result column="SiteInfo_countOfTrash" jdbcType="INTEGER" property="siteinfoCountoftrash" />
+    <result column="SiteInfo_openTime" jdbcType="TIMESTAMP" property="siteinfoOpentime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    SiteInfo_id, SiteInfo_site, SiteInfo_location, SiteInfo_classification, SiteInfo_countOfTrash, 
+    SiteInfo_openTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from site
+    where SiteInfo_id = #{siteinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from site
+    where SiteInfo_id = #{siteinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.entity.Site">
+    insert into site (SiteInfo_id, SiteInfo_site, SiteInfo_location, 
+      SiteInfo_classification, SiteInfo_countOfTrash, 
+      SiteInfo_openTime)
+    values (#{siteinfoId,jdbcType=INTEGER}, #{siteinfoSite,jdbcType=INTEGER}, #{siteinfoLocation,jdbcType=VARCHAR}, 
+      #{siteinfoClassification,jdbcType=INTEGER}, #{siteinfoCountoftrash,jdbcType=INTEGER}, 
+      #{siteinfoOpentime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.entity.Site">
+    insert into site
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="siteinfoId != null">
+        SiteInfo_id,
+      </if>
+      <if test="siteinfoSite != null">
+        SiteInfo_site,
+      </if>
+      <if test="siteinfoLocation != null">
+        SiteInfo_location,
+      </if>
+      <if test="siteinfoClassification != null">
+        SiteInfo_classification,
+      </if>
+      <if test="siteinfoCountoftrash != null">
+        SiteInfo_countOfTrash,
+      </if>
+      <if test="siteinfoOpentime != null">
+        SiteInfo_openTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="siteinfoId != null">
+        #{siteinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="siteinfoSite != null">
+        #{siteinfoSite,jdbcType=INTEGER},
+      </if>
+      <if test="siteinfoLocation != null">
+        #{siteinfoLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="siteinfoClassification != null">
+        #{siteinfoClassification,jdbcType=INTEGER},
+      </if>
+      <if test="siteinfoCountoftrash != null">
+        #{siteinfoCountoftrash,jdbcType=INTEGER},
+      </if>
+      <if test="siteinfoOpentime != null">
+        #{siteinfoOpentime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.entity.Site">
+    update site
+    <set>
+      <if test="siteinfoSite != null">
+        SiteInfo_site = #{siteinfoSite,jdbcType=INTEGER},
+      </if>
+      <if test="siteinfoLocation != null">
+        SiteInfo_location = #{siteinfoLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="siteinfoClassification != null">
+        SiteInfo_classification = #{siteinfoClassification,jdbcType=INTEGER},
+      </if>
+      <if test="siteinfoCountoftrash != null">
+        SiteInfo_countOfTrash = #{siteinfoCountoftrash,jdbcType=INTEGER},
+      </if>
+      <if test="siteinfoOpentime != null">
+        SiteInfo_openTime = #{siteinfoOpentime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SiteInfo_id = #{siteinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.entity.Site">
+    update site
+    set SiteInfo_site = #{siteinfoSite,jdbcType=INTEGER},
+      SiteInfo_location = #{siteinfoLocation,jdbcType=VARCHAR},
+      SiteInfo_classification = #{siteinfoClassification,jdbcType=INTEGER},
+      SiteInfo_countOfTrash = #{siteinfoCountoftrash,jdbcType=INTEGER},
+      SiteInfo_openTime = #{siteinfoOpentime,jdbcType=TIMESTAMP}
+    where SiteInfo_id = #{siteinfoId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

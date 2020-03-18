@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.GreendailyMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.entity.Greendaily">
+    <id column="GreenDailyInfo_id" jdbcType="INTEGER" property="greendailyinfoId" />
+    <result column="GreenDailyInfo_title" jdbcType="VARCHAR" property="greendailyinfoTitle" />
+    <result column="GreenDailyInfo_author" jdbcType="VARCHAR" property="greendailyinfoAuthor" />
+    <result column="GreenDailyInfo_uploadTime" jdbcType="TIMESTAMP" property="greendailyinfoUploadtime" />
+    <result column="GreenDailyInfo_description" jdbcType="VARCHAR" property="greendailyinfoDescription" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.springmvc.entity.Greendaily">
+    <result column="GreenDailyInfo_text" jdbcType="LONGVARCHAR" property="greendailyinfoText" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    GreenDailyInfo_id, GreenDailyInfo_title, GreenDailyInfo_author, GreenDailyInfo_uploadTime, 
+    GreenDailyInfo_description
+  </sql>
+  <sql id="Blob_Column_List">
+    GreenDailyInfo_text
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from greendaily
+    where GreenDailyInfo_id = #{greendailyinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from greendaily
+    where GreenDailyInfo_id = #{greendailyinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.entity.Greendaily">
+    insert into greendaily (GreenDailyInfo_id, GreenDailyInfo_title, 
+      GreenDailyInfo_author, GreenDailyInfo_uploadTime, 
+      GreenDailyInfo_description, GreenDailyInfo_text
+      )
+    values (#{greendailyinfoId,jdbcType=INTEGER}, #{greendailyinfoTitle,jdbcType=VARCHAR}, 
+      #{greendailyinfoAuthor,jdbcType=VARCHAR}, #{greendailyinfoUploadtime,jdbcType=TIMESTAMP}, 
+      #{greendailyinfoDescription,jdbcType=VARCHAR}, #{greendailyinfoText,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.entity.Greendaily">
+    insert into greendaily
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="greendailyinfoId != null">
+        GreenDailyInfo_id,
+      </if>
+      <if test="greendailyinfoTitle != null">
+        GreenDailyInfo_title,
+      </if>
+      <if test="greendailyinfoAuthor != null">
+        GreenDailyInfo_author,
+      </if>
+      <if test="greendailyinfoUploadtime != null">
+        GreenDailyInfo_uploadTime,
+      </if>
+      <if test="greendailyinfoDescription != null">
+        GreenDailyInfo_description,
+      </if>
+      <if test="greendailyinfoText != null">
+        GreenDailyInfo_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="greendailyinfoId != null">
+        #{greendailyinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="greendailyinfoTitle != null">
+        #{greendailyinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="greendailyinfoAuthor != null">
+        #{greendailyinfoAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="greendailyinfoUploadtime != null">
+        #{greendailyinfoUploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="greendailyinfoDescription != null">
+        #{greendailyinfoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="greendailyinfoText != null">
+        #{greendailyinfoText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.entity.Greendaily">
+    update greendaily
+    <set>
+      <if test="greendailyinfoTitle != null">
+        GreenDailyInfo_title = #{greendailyinfoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="greendailyinfoAuthor != null">
+        GreenDailyInfo_author = #{greendailyinfoAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="greendailyinfoUploadtime != null">
+        GreenDailyInfo_uploadTime = #{greendailyinfoUploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="greendailyinfoDescription != null">
+        GreenDailyInfo_description = #{greendailyinfoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="greendailyinfoText != null">
+        GreenDailyInfo_text = #{greendailyinfoText,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where GreenDailyInfo_id = #{greendailyinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.springmvc.entity.Greendaily">
+    update greendaily
+    set GreenDailyInfo_title = #{greendailyinfoTitle,jdbcType=VARCHAR},
+      GreenDailyInfo_author = #{greendailyinfoAuthor,jdbcType=VARCHAR},
+      GreenDailyInfo_uploadTime = #{greendailyinfoUploadtime,jdbcType=TIMESTAMP},
+      GreenDailyInfo_description = #{greendailyinfoDescription,jdbcType=VARCHAR},
+      GreenDailyInfo_text = #{greendailyinfoText,jdbcType=LONGVARCHAR}
+    where GreenDailyInfo_id = #{greendailyinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.entity.Greendaily">
+    update greendaily
+    set GreenDailyInfo_title = #{greendailyinfoTitle,jdbcType=VARCHAR},
+      GreenDailyInfo_author = #{greendailyinfoAuthor,jdbcType=VARCHAR},
+      GreenDailyInfo_uploadTime = #{greendailyinfoUploadtime,jdbcType=TIMESTAMP},
+      GreenDailyInfo_description = #{greendailyinfoDescription,jdbcType=VARCHAR}
+    where GreenDailyInfo_id = #{greendailyinfoId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

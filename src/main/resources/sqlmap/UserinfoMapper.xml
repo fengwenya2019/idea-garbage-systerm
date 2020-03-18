@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.UserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.entity.Userinfo">
+    <id column="UserInfo_id" jdbcType="INTEGER" property="userinfoId" />
+    <result column="UserInfo_name" jdbcType="VARCHAR" property="userinfoName" />
+    <result column="UserInfo_userName" jdbcType="VARCHAR" property="userinfoUsername" />
+    <result column="UserInfo_phone" jdbcType="VARCHAR" property="userinfoPhone" />
+    <result column="UserInfo_password" jdbcType="VARCHAR" property="userinfoPassword" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    UserInfo_id, UserInfo_name, UserInfo_userName, UserInfo_phone, UserInfo_password
+  </sql>
+  <select id="selectByExample" parameterType="com.springmvc.entity.UserinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userinfo
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.springmvc.entity.UserinfoExample">
+    delete from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.entity.Userinfo">
+    insert into userinfo (UserInfo_id, UserInfo_name, UserInfo_userName, 
+      UserInfo_phone, UserInfo_password)
+    values (#{userinfoId,jdbcType=INTEGER}, #{userinfoName,jdbcType=VARCHAR}, #{userinfoUsername,jdbcType=VARCHAR}, 
+      #{userinfoPhone,jdbcType=VARCHAR}, #{userinfoPassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.entity.Userinfo">
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userinfoId != null">
+        UserInfo_id,
+      </if>
+      <if test="userinfoName != null">
+        UserInfo_name,
+      </if>
+      <if test="userinfoUsername != null">
+        UserInfo_userName,
+      </if>
+      <if test="userinfoPhone != null">
+        UserInfo_phone,
+      </if>
+      <if test="userinfoPassword != null">
+        UserInfo_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userinfoId != null">
+        #{userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoName != null">
+        #{userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoUsername != null">
+        #{userinfoUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPhone != null">
+        #{userinfoPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPassword != null">
+        #{userinfoPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.springmvc.entity.UserinfoExample" resultType="java.lang.Integer">
+    select count(*) from userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update userinfo
+    <set>
+      <if test="record.userinfoId != null">
+        UserInfo_id = #{record.userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userinfoName != null">
+        UserInfo_name = #{record.userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoUsername != null">
+        UserInfo_userName = #{record.userinfoUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoPhone != null">
+        UserInfo_phone = #{record.userinfoPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userinfoPassword != null">
+        UserInfo_password = #{record.userinfoPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update userinfo
+    set UserInfo_id = #{record.userinfoId,jdbcType=INTEGER},
+      UserInfo_name = #{record.userinfoName,jdbcType=VARCHAR},
+      UserInfo_userName = #{record.userinfoUsername,jdbcType=VARCHAR},
+      UserInfo_phone = #{record.userinfoPhone,jdbcType=VARCHAR},
+      UserInfo_password = #{record.userinfoPassword,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.entity.Userinfo">
+    update userinfo
+    <set>
+      <if test="userinfoName != null">
+        UserInfo_name = #{userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoUsername != null">
+        UserInfo_userName = #{userinfoUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPhone != null">
+        UserInfo_phone = #{userinfoPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPassword != null">
+        UserInfo_password = #{userinfoPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.entity.Userinfo">
+    update userinfo
+    set UserInfo_name = #{userinfoName,jdbcType=VARCHAR},
+      UserInfo_userName = #{userinfoUsername,jdbcType=VARCHAR},
+      UserInfo_phone = #{userinfoPhone,jdbcType=VARCHAR},
+      UserInfo_password = #{userinfoPassword,jdbcType=VARCHAR}
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.springmvc.entity.Userinfo">
+    <id column="UserInfo_id" jdbcType="INTEGER" property="userinfoId" />
+    <result column="UserInfo_name" jdbcType="VARCHAR" property="userinfoName" />
+    <result column="UserInfo_userName" jdbcType="VARCHAR" property="userinfoUsername" />
+    <result column="UserInfo_phone" jdbcType="VARCHAR" property="userinfoPhone" />
+    <result column="UserInfo_password" jdbcType="VARCHAR" property="userinfoPassword" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    UserInfo_id, UserInfo_name, UserInfo_userName, UserInfo_phone, UserInfo_password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userinfo
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.entity.Userinfo">
+    insert into userinfo (UserInfo_id, UserInfo_name, UserInfo_userName, 
+      UserInfo_phone, UserInfo_password)
+    values (#{userinfoId,jdbcType=INTEGER}, #{userinfoName,jdbcType=VARCHAR}, #{userinfoUsername,jdbcType=VARCHAR}, 
+      #{userinfoPhone,jdbcType=VARCHAR}, #{userinfoPassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.entity.Userinfo">
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userinfoId != null">
+        UserInfo_id,
+      </if>
+      <if test="userinfoName != null">
+        UserInfo_name,
+      </if>
+      <if test="userinfoUsername != null">
+        UserInfo_userName,
+      </if>
+      <if test="userinfoPhone != null">
+        UserInfo_phone,
+      </if>
+      <if test="userinfoPassword != null">
+        UserInfo_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userinfoId != null">
+        #{userinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userinfoName != null">
+        #{userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoUsername != null">
+        #{userinfoUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPhone != null">
+        #{userinfoPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPassword != null">
+        #{userinfoPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.entity.Userinfo">
+    update userinfo
+    <set>
+      <if test="userinfoName != null">
+        UserInfo_name = #{userinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoUsername != null">
+        UserInfo_userName = #{userinfoUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPhone != null">
+        UserInfo_phone = #{userinfoPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userinfoPassword != null">
+        UserInfo_password = #{userinfoPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.entity.Userinfo">
+    update userinfo
+    set UserInfo_name = #{userinfoName,jdbcType=VARCHAR},
+      UserInfo_userName = #{userinfoUsername,jdbcType=VARCHAR},
+      UserInfo_phone = #{userinfoPhone,jdbcType=VARCHAR},
+      UserInfo_password = #{userinfoPassword,jdbcType=VARCHAR}
+    where UserInfo_id = #{userinfoId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

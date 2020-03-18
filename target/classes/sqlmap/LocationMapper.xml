@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.LocationMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.entity.Location">
+    <id column="LocationInfo_id" jdbcType="INTEGER" property="locationinfoId" />
+    <result column="LocationInfo_code" jdbcType="INTEGER" property="locationinfoCode" />
+    <result column="LocationInfo_name" jdbcType="VARCHAR" property="locationinfoName" />
+    <result column="LocationInfo_description" jdbcType="VARCHAR" property="locationinfoDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    LocationInfo_id, LocationInfo_code, LocationInfo_name, LocationInfo_description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from location
+    where LocationInfo_id = #{locationinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from location
+    where LocationInfo_id = #{locationinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.entity.Location">
+    insert into location (LocationInfo_id, LocationInfo_code, 
+      LocationInfo_name, LocationInfo_description
+      )
+    values (#{locationinfoId,jdbcType=INTEGER}, #{locationinfoCode,jdbcType=INTEGER}, 
+      #{locationinfoName,jdbcType=VARCHAR}, #{locationinfoDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.entity.Location">
+    insert into location
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="locationinfoId != null">
+        LocationInfo_id,
+      </if>
+      <if test="locationinfoCode != null">
+        LocationInfo_code,
+      </if>
+      <if test="locationinfoName != null">
+        LocationInfo_name,
+      </if>
+      <if test="locationinfoDescription != null">
+        LocationInfo_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="locationinfoId != null">
+        #{locationinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="locationinfoCode != null">
+        #{locationinfoCode,jdbcType=INTEGER},
+      </if>
+      <if test="locationinfoName != null">
+        #{locationinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="locationinfoDescription != null">
+        #{locationinfoDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.entity.Location">
+    update location
+    <set>
+      <if test="locationinfoCode != null">
+        LocationInfo_code = #{locationinfoCode,jdbcType=INTEGER},
+      </if>
+      <if test="locationinfoName != null">
+        LocationInfo_name = #{locationinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="locationinfoDescription != null">
+        LocationInfo_description = #{locationinfoDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LocationInfo_id = #{locationinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.entity.Location">
+    update location
+    set LocationInfo_code = #{locationinfoCode,jdbcType=INTEGER},
+      LocationInfo_name = #{locationinfoName,jdbcType=VARCHAR},
+      LocationInfo_description = #{locationinfoDescription,jdbcType=VARCHAR}
+    where LocationInfo_id = #{locationinfoId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

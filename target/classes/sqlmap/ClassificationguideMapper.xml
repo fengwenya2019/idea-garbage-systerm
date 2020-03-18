@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.ClassificationguideMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.entity.Classificationguide">
+    <id column="ClassificationGuideInfo_id" jdbcType="INTEGER" property="classificationguideinfoId" />
+    <result column="ClassificationGuideInfo_name" jdbcType="VARCHAR" property="classificationguideinfoName" />
+    <result column="ClassificationGuideInfo_classification" jdbcType="INTEGER" property="classificationguideinfoClassification" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ClassificationGuideInfo_id, ClassificationGuideInfo_name, ClassificationGuideInfo_classification
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classificationguide
+    where ClassificationGuideInfo_id = #{classificationguideinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classificationguide
+    where ClassificationGuideInfo_id = #{classificationguideinfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.entity.Classificationguide">
+    insert into classificationguide (ClassificationGuideInfo_id, ClassificationGuideInfo_name, 
+      ClassificationGuideInfo_classification)
+    values (#{classificationguideinfoId,jdbcType=INTEGER}, #{classificationguideinfoName,jdbcType=VARCHAR}, 
+      #{classificationguideinfoClassification,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.entity.Classificationguide">
+    insert into classificationguide
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classificationguideinfoId != null">
+        ClassificationGuideInfo_id,
+      </if>
+      <if test="classificationguideinfoName != null">
+        ClassificationGuideInfo_name,
+      </if>
+      <if test="classificationguideinfoClassification != null">
+        ClassificationGuideInfo_classification,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classificationguideinfoId != null">
+        #{classificationguideinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="classificationguideinfoName != null">
+        #{classificationguideinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="classificationguideinfoClassification != null">
+        #{classificationguideinfoClassification,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.entity.Classificationguide">
+    update classificationguide
+    <set>
+      <if test="classificationguideinfoName != null">
+        ClassificationGuideInfo_name = #{classificationguideinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="classificationguideinfoClassification != null">
+        ClassificationGuideInfo_classification = #{classificationguideinfoClassification,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ClassificationGuideInfo_id = #{classificationguideinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.entity.Classificationguide">
+    update classificationguide
+    set ClassificationGuideInfo_name = #{classificationguideinfoName,jdbcType=VARCHAR},
+      ClassificationGuideInfo_classification = #{classificationguideinfoClassification,jdbcType=INTEGER}
+    where ClassificationGuideInfo_id = #{classificationguideinfoId,jdbcType=INTEGER}
+  </update>
+
+</mapper>
